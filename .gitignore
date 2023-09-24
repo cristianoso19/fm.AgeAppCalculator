@@ -18,3 +18,4 @@
 node_modules
 bun.*
 dist/output.css
+.vscode

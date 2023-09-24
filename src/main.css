@@ -16,12 +16,14 @@
 
 .input{
     @apply 
-    mt-1 h-14 
+    mt-1 
+    h-14 
     w-full 
     border 
     border-lightGrey 
     rounded-md 
-    pl-4 text-xl 
+    pl-4 
+    text-xl 
     text-offBlack 
     focus:outline-none 
     focus:border-primary
