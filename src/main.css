@@ -25,4 +25,5 @@
     text-offBlack 
     focus:outline-none 
     focus:border-primary
+    cursor-pointer
 }
