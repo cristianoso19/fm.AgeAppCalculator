@@ -32,9 +32,10 @@ function validateForm(){
 
 function reviewDay(){
     if (dayInput.value === ''){
-        setError(dayInput, "The field is required")
+        setError(dayInput, "The field is required");
         return false;
     } else if (validateDay(dayInput.value)){
+        setSuccess(dayInput);
         return true;
     } else {
         setError(dayInput, "Must be a valid day");
@@ -44,9 +45,10 @@ function reviewDay(){
 
 function reviewMonth(){
     if (monthInput.value === ''){
-        setError(monthInput, "The field is required")
+        setError(monthInput, "The field is required");
         return false;
     } else if (validateMonth(monthInput.value)){
+        setSuccess(monthInput);
         return true;
     } else {
         setError(monthInput, "Must be a valid month");
@@ -56,9 +58,10 @@ function reviewMonth(){
 
 function reviewYear(){
     if (yearInput.value === ''){
-        setError(yearInput, "The field is required")
+        setError(yearInput, "The field is required");
         return false;
     } else if (validateYear(yearInput.value)){
+        setSuccess(yearInput);
         return true;
     } else {
         setError(yearInput, "Must be a valid year");
@@ -81,19 +84,34 @@ function validateYear (value){
     return regexPattern.test(value); 
 }
 
+const setSuccess = (element) =>{
+    const inputControl = element.parentElement;
+    const successLabel = inputControl.querySelector('label');
+
+    deleteIfExists(inputControl, 'span');
+ 
+    element.classList.remove('border-error');
+    element.classList.add('border-primary');
+    
+    successLabel.classList.remove('text-error');
+    successLabel.classList.add('text-primary');
+} 
+
 const setError = (element, message) => {
     const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('label');
+    const errorLabel = inputControl.querySelector('label');
 
     deleteIfExists(inputControl,'span');
+
     const childElement = document.createElement('span');
     childElement.textContent = message;
     inputControl.appendChild(childElement);
 
-    element.classList.remove('input');
-    element.classList.add('input-error');
+    element.classList.remove('border-primary');
+    element.classList.add('border-error');
     childElement.classList.add('text-error', 'italic', 'text-[10px]', 'traking-tighest');
-    errorDisplay.classList.add('text-error');
+    errorLabel.classList.remove('text-primary');
+    errorLabel.classList.add('text-error');
 }
 
 const deleteIfExists = (element,label) => {
