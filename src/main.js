@@ -18,16 +18,80 @@ function validateForm(){
         reviewDay(),
         reviewMonth(),
         reviewYear(),
-        //reviewDate(),
     ];
 
     const allConditionsMet = conditions.every(condition => condition === true);
 
     if (allConditionsMet){
+        reviewDate();
         return true;
     } else {
         return false;
     }
+}
+
+function reviewDate(){
+    const inputDate = yearInput.value+'-'+monthInput.value+'-'+dayInput.value;
+    if (validateDate(inputDate)){
+        if (validateFuture(inputDate)){
+            const age = calculateAge(inputDate);         
+            console.log(`Edad: ${age.years} años, ${age.months} meses, ${age.days} días`)
+        } else {
+            setErrorOnFormat("Must be in the past");
+        }
+    } else {
+        setErrorOnFormat("Invalid date");
+    }
+}
+
+function calculateAge(birthdayStr) {
+    const birthday = new Date(birthdayStr);
+    const actualDate = new Date();
+  
+    const diff = actualDate - birthday;
+    const age = new Date(diff);
+  
+    return {
+      years: age.getUTCFullYear() - 1970,
+      months: age.getUTCMonth(),
+      days: age.getUTCDate(),
+    };
+  }
+
+const validateFuture =  (date)=>{
+    const inputDate = new Date(date);
+    const actualDate = new Date();
+
+    return inputDate<=actualDate;
+
+}
+
+const setErrorOnFormat = (message) => {
+    setError(dayInput,"");
+    setError(monthInput,"");
+    setError(yearInput,message);
+}
+
+const validateDate = (date) => {
+    // Object.prototype.toString.call(object) is a common technique to get the type of an object in JavaScript in a more precise and reliable way than other approaches, as it works for a variety of object types.
+    const dateStr = date;
+    date = new Date(date);
+
+    if (Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date)) {
+        return date.toISOString().slice(0, 10) === dateStr;
+    }
+      
+    return false;
+}
+
+const actualDate = () => {
+    const actualDate = new Date.now();
+    const yearNow = actualDate.getFullYear();
+    const monthNow = String(actualDate.getMonth() + 1).padStart(2, '0');
+    const dayNow = String(actualDate.getDate()).padStart(2, '0');
+    
+    return `${yearNow}-${monthNow}-${dayNow}`;
+
 }
 
 function reviewDay(){
