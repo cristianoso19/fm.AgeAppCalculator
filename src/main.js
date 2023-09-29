@@ -36,12 +36,23 @@ function reviewDate(){
         if (validateFuture(inputDate)){
             const age = calculateAge(inputDate);         
             console.log(`Edad: ${age.years} años, ${age.months} meses, ${age.days} días`)
+            showAge(age);
         } else {
             setErrorOnFormat("Must be in the past");
         }
     } else {
         setErrorOnFormat("Invalid date");
     }
+}
+
+function showAge(age){
+   const ageYear = document.getElementById('age-year'); 
+   const ageMonth = document.getElementById('age-month'); 
+   const ageDay = document.getElementById('age-day'); 
+
+   ageYear.textContent = age.years;
+   ageMonth.textContent = age.months;
+   ageDay.textContent = age.days;
 }
 
 function calculateAge(birthdayStr) {
