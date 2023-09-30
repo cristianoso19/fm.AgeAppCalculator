@@ -46,17 +46,6 @@ function reviewDate(){
 }
 
 function showAge(age){
-//    const ageYear = document.getElementById('age-year'); 
-//    const ageMonth = document.getElementById('age-month'); 
-//    const ageDay = document.getElementById('age-day'); 
-
-//    ageYear.textContent = age.years;
-//    ageMonth.textContent = age.months;
-//    ageDay.textContent = age.days;
-    animateCountdown(age);
-}
-
-function animateCountdown(age) {
     const yearSpan = document.getElementById('age-year');
     const monthSpan = document.getElementById('age-month');
     const daySpan = document.getElementById('age-day');
@@ -65,9 +54,9 @@ function animateCountdown(age) {
     let currentMonth = 0;
     let currentDay = 0;
 
-    const yearInterval = Math.floor(700/age.years); // Calcula el intervalo para el año
-    const monthInterval = Math.floor(700/age.months); // Calcula el intervalo para el mes
-    const dayInterval = Math.floor(700/age.days); // Calcula el intervalo para el día
+    const yearInterval = Math.floor(700/age.years); 
+    const monthInterval = Math.floor(700/age.months); 
+    const dayInterval = Math.floor(700/age.days); 
 
     const yearTimer = setInterval(() => {
         if (currentYear <= age.years) {
@@ -95,6 +84,10 @@ function animateCountdown(age) {
             clearInterval(dayTimer);
         }
     }, dayInterval);
+}
+
+function animateCountdown(age) {
+
 }
 
 function calculateAge(birthdayStr) {
