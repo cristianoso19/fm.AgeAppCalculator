@@ -6,9 +6,11 @@ form.addEventListener('submit', (e)=>{
     e.preventDefault();
     if (validateForm()){
         console.log("Form Validate");
-        // showAge();
+        const inputDate = yearInput.value+'-'+monthInput.value+'-'+dayInput.value;
+        const age = calculateAge(inputDate);         
+        showAge(age);
+        console.log(`Edad: ${age.years} años, ${age.months} meses, ${age.days} días`)
     } else {
-        // showErrors();
         console.log("Error NO Validate");
     }
 });
@@ -33,11 +35,7 @@ function validateForm(){
 function reviewDate(){
     const inputDate = yearInput.value+'-'+monthInput.value+'-'+dayInput.value;
     if (validateDate(inputDate)){
-        if (validateFuture(inputDate)){
-            const age = calculateAge(inputDate);         
-            console.log(`Edad: ${age.years} años, ${age.months} meses, ${age.days} días`)
-            showAge(age);
-        } else {
+        if (!validateFuture(inputDate)){
             setErrorOnFormat("Must be in the past");
         }
     } else {
@@ -84,10 +82,6 @@ function showAge(age){
             clearInterval(dayTimer);
         }
     }, dayInterval);
-}
-
-function animateCountdown(age) {
-
 }
 
 function calculateAge(birthdayStr) {
