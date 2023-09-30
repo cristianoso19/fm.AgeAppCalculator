@@ -108,9 +108,9 @@ const validateFuture =  ()=>{
 }
 
 const setErrorOnFormat = (message) => {
-    setError(dayInput,"");
+    setError(dayInput,message);
     setError(monthInput,"");
-    setError(yearInput,message);
+    setError(yearInput,"");
 }
 
 const validateDate = () => {
