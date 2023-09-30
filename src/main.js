@@ -46,13 +46,55 @@ function reviewDate(){
 }
 
 function showAge(age){
-   const ageYear = document.getElementById('age-year'); 
-   const ageMonth = document.getElementById('age-month'); 
-   const ageDay = document.getElementById('age-day'); 
+//    const ageYear = document.getElementById('age-year'); 
+//    const ageMonth = document.getElementById('age-month'); 
+//    const ageDay = document.getElementById('age-day'); 
 
-   ageYear.textContent = age.years;
-   ageMonth.textContent = age.months;
-   ageDay.textContent = age.days;
+//    ageYear.textContent = age.years;
+//    ageMonth.textContent = age.months;
+//    ageDay.textContent = age.days;
+    animateCountdown(age);
+}
+
+function animateCountdown(age) {
+    const yearSpan = document.getElementById('age-year');
+    const monthSpan = document.getElementById('age-month');
+    const daySpan = document.getElementById('age-day');
+    
+    let currentYear = 0;
+    let currentMonth = 0;
+    let currentDay = 0;
+
+    const yearInterval = Math.floor(700/age.years); // Calcula el intervalo para el año
+    const monthInterval = Math.floor(700/age.months); // Calcula el intervalo para el mes
+    const dayInterval = Math.floor(700/age.days); // Calcula el intervalo para el día
+
+    const yearTimer = setInterval(() => {
+        if (currentYear <= age.years) {
+            yearSpan.textContent = currentYear;
+            currentYear += 1;
+        } else {
+            clearInterval(yearTimer);
+        }
+    }, yearInterval);
+
+    const monthTimer = setInterval(() => {
+        if (currentMonth <= age.months) {
+            monthSpan.textContent = currentMonth;
+            currentMonth += 1;
+        } else {
+            clearInterval(monthTimer);
+        }
+    }, monthInterval);
+
+    const dayTimer = setInterval(() => {
+        if (currentDay <= age.days) {
+            daySpan.textContent = currentDay;
+            currentDay += 1;
+        } else {
+            clearInterval(dayTimer);
+        }
+    }, dayInterval);
 }
 
 function calculateAge(birthdayStr) {
