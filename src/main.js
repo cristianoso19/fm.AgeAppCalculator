@@ -1,7 +1,10 @@
 const dayInput = document.getElementById('day');
 const monthInput = document.getElementById('month');
 const yearInput = document.getElementById('year');
-
+const yearSpan = document.getElementById('age-year');
+const monthSpan = document.getElementById('age-month');
+const daySpan = document.getElementById('age-day');
+ 
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
     if (validateForm()){
@@ -44,10 +47,7 @@ function reviewDate(){
 }
 
 function showAge(age){
-    const yearSpan = document.getElementById('age-year');
-    const monthSpan = document.getElementById('age-month');
-    const daySpan = document.getElementById('age-day');
-    
+   
     let currentYear = 0;
     let currentMonth = 0;
     let currentDay = 0;
@@ -231,6 +231,10 @@ const setError = (element, message) => {
     childElement.classList.add('text-error', 'italic', 'text-[10px]', 'traking-tighest');
     errorLabel.classList.remove('text-primary');
     errorLabel.classList.add('text-error');
+
+    yearSpan.textContent = "--";
+    monthSpan.textContent = "--";
+    daySpan.textContent = "--";
 }
 
 const deleteIfExists = (element,label) => {
