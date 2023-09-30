@@ -105,7 +105,6 @@ const validateFuture =  ()=>{
     const actualDate = new Date();
 
     return inputDate<=actualDate;
-
 }
 
 const setErrorOnFormat = (message) => {
@@ -151,7 +150,7 @@ const actualDate = () => {
 
 function reviewDay(){
     if (dayInput.value === ''){
-        setError(dayInput, "The field is required");
+        setError(dayInput, "This field is required");
         return false;
     } else if (validateDay(dayInput.value)){
         setSuccess(dayInput);
@@ -164,7 +163,7 @@ function reviewDay(){
 
 function reviewMonth(){
     if (monthInput.value === ''){
-        setError(monthInput, "The field is required");
+        setError(monthInput, "This field is required");
         return false;
     } else if (validateMonth(monthInput.value)){
         setSuccess(monthInput);
@@ -177,7 +176,7 @@ function reviewMonth(){
 
 function reviewYear(){
     if (yearInput.value === ''){
-        setError(yearInput, "The field is required");
+        setError(yearInput, "This field is required");
         return false;
     } else if (validateYear(yearInput.value)){
         setSuccess(yearInput);
