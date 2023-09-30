@@ -3,11 +3,14 @@
 @import "tailwindcss/utilities";
 
 @layer base {
-    .bordered{
-        border-radius: 20px 20px 80px 20px;
-    }
 }
 @layer components {
+    .card-sm{
+        border-radius: 20px 20px 80px 20px;
+    }
+    .card-md{
+        border-radius: 20px 20px 150px 20px;
+    }
 
 }
 @layer utilities {
@@ -27,4 +30,7 @@
     focus:border-primary
     cursor-pointer
     text-offBlack 
+    md:block
+    md:text-3xl
+    md:h-16
 }
