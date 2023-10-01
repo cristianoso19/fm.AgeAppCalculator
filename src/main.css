@@ -28,6 +28,8 @@
     text-xl 
     focus:outline-none 
     focus:border-primary
+    hover:outline-none 
+    hover:border-primary
     cursor-pointer
     text-offBlack 
     md:block
