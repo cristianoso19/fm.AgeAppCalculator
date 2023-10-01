@@ -19,101 +19,115 @@ This is a solution to the [Age calculator app challenge on Frontend Mentor](http
 **Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
+Hello dudes, this project apparents be easy, but i learned a lot of things about working with dates, validations, animations, and reduce an string with regex.
+I'm happy to end this project its take less time becouse i make a bit every day.
 
 ### The challenge
 
 Users should be able to:
 
-- View an age in years, months, and days after submitting a valid date through the form
-- Receive validation errors if:
-  - Any field is empty when the form is submitted
-  - The day number is not between 1-31
-  - The month number is not between 1-12
-  - The year is in the future
-  - The date is invalid e.g. 31/04/1991 (there are 30 days in April)
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
-- **Bonus**: See the age numbers animate to their final number when the form is submitted
+- ✅View an age in years, months, and days after submitting a valid date through the form
+- ✅Receive validation errors if:
+  - ✅Any field is empty when the form is submitted
+  - ✅The day number is not between 1-31
+  - ✅The month number is not between 1-12
+  - ✅The year is in the future
+  - ✅The date is invalid e.g. 31/04/1991 (there are 30 days in April)
+- ✅View the optimal layout for the interface depending on their device's screen size
+- ✅See hover and focus states for all interactive elements on the page
+- ✅**Bonus**: See the age numbers animate to their final number when the form is submitted
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![](./design/screenshot.webp)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github.com](https://github.com/cristianoso19/fm.AgeAppCalculator)
+- Live Site URL: [Deployed on Vercel](https://your-live-site-url.com)
 
 ## My process
+* Start with Html 
+* Config css and tailwindcss
+* Config postcss
+* Add javascript functionalities
+* Add animations and more visual elements
 
 ### Built with
 
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
-- CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- [TailwindCSS](https://tailwindcss.com/) - CSS library
 
 ### What I learned
+#### Animations
+The showAge function creates an animation that displays the progression of age in years, months, and days dynamically on an HTML document. This animation is achieved by periodically updating the DOM elements until they reach the values provided in the age object.
+```javascript
+function showAge(age){
+   
+    let currentYear = 0;
+    let currentMonth = 0;
+    let currentDay = 0;
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+    const yearInterval = Math.floor(700/age.years); 
+    const monthInterval = Math.floor(700/age.months); 
+    const dayInterval = Math.floor(700/age.days); 
 
-To see how you can add code snippets, see below:
+    const yearTimer = setInterval(() => {
+        if (currentYear <= age.years) {
+            yearSpan.textContent = currentYear;
+            currentYear += 1;
+        } else {
+            clearInterval(yearTimer);
+        }
+    }, yearInterval);
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
+    const monthTimer = setInterval(() => {
+        if (currentMonth <= age.months) {
+            monthSpan.textContent = currentMonth;
+            currentMonth += 1;
+        } else {
+            clearInterval(monthTimer);
+        }
+    }, monthInterval);
+
+    const dayTimer = setInterval(() => {
+        if (currentDay <= age.days) {
+            daySpan.textContent = currentDay;
+            currentDay += 1;
+        } else {
+            clearInterval(dayTimer);
+        }
+    }, dayInterval);
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+#### Object.prototype.toString.call(object)
+In JavaScript, is a method used to get the internal [[Class]] property of an object, which represents the object type. It's a reliable way to determine the actual type of an object. When you call Object.prototype.toString with an object as this context (which is what happens when you do Object.prototype.toString.call(object)), it returns a string representation of the object's type.
+
+``` javascript
+const validateDate = (date) => {
+    const dateStr = date;
+    date = new Date(date);
+
+    // Object.prototype.toString.call(date) is used to check if 'date' is a valid Date object.
+    if (Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date)) {
+        // If 'date' is a valid Date object and not NaN, it checks if it matches the original string representation.
+        return date.toISOString().slice(0, 10) === dateStr;
+    }
+    return false;
 }
 ```
+1. Object.prototype.toString.call(date): This checks the type of the date variable. If it's a valid Date object, it will return "[object Date]".
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+2. !isNaN(date): This part ensures that the date variable is not NaN. If date is a valid Date object, it won't be NaN.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+3. date.toISOString().slice(0, 10) === dateStr: After confirming that date is a valid Date object and not NaN, it converts the Date to a string in the format 'YYYY-MM-DD' using toISOString(). It then compares this string with the original dateStr to ensure that they match. If they match, the input was a valid date string, and the function returns true. Otherwise, it returns false.
 
-### Continued development
-
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Website - [Cristian Sacta](https://www.jomron.com)
+- Frontend Mentor - [@cristianoso19](https://www.frontendmentor.io/profile/cristianoso19)
+- Twitter - [@cristianoso19](https://www.twitter.com/cristianoso19)
